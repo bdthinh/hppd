@@ -1,2 +1,11 @@
 class Video < ActiveRecord::Base
+  belongs_to :user
+  has_many :video_votes_of_users
+  has_many :user_votes, through: :video_votes_of_users
+  def is_published?
+    is_published
+  end
+  def is_showed_tv?
+    is_showed_tv
+  end
 end

@@ -6,9 +6,10 @@ class CreateUserProfiles < ActiveRecord::Migration
       t.datetime :birthdate
       t.string  :address
       t.string  :city
+      t.string :avatar_url
       t.integer :user_id
       t.timestamps null: false
     end
-    add_index :user_profiles, :user_id
+    add_index :user_profiles, :user_id, unique: true
   end
 end

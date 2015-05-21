@@ -6,6 +6,7 @@ class CreateVideos < ActiveRecord::Migration
       t.string :subtitle
       t.text  :description
       t.integer :votes
+      t.integer :user_id
       t.boolean :is_published, default: false
       t.boolean :is_showed_on_tv, default: false
       t.datetime :showed_date

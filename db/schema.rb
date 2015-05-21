@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150521185213) do
+ActiveRecord::Schema.define(version: 20150521192213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,12 +50,13 @@ ActiveRecord::Schema.define(version: 20150521185213) do
     t.datetime "birthdate"
     t.string   "address"
     t.string   "city"
+    t.string   "avatar_url"
     t.integer  "user_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
 
-  add_index "user_profiles", ["user_id"], name: "index_user_profiles_on_user_id", using: :btree
+  add_index "user_profiles", ["user_id"], name: "index_user_profiles_on_user_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -71,6 +72,8 @@ ActiveRecord::Schema.define(version: 20150521185213) do
     t.boolean  "is_admin",               default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -91,6 +94,7 @@ ActiveRecord::Schema.define(version: 20150521185213) do
     t.string   "subtitle"
     t.text     "description"
     t.integer  "votes"
+    t.integer  "user_id"
     t.boolean  "is_published",    default: false
     t.boolean  "is_showed_on_tv", default: false
     t.datetime "showed_date"
@@ -99,14 +103,5 @@ ActiveRecord::Schema.define(version: 20150521185213) do
   end
 
   add_index "videos", ["title"], name: "index_videos_on_title", unique: true, using: :btree
-
-  create_table "videos_of_users", id: false, force: :cascade do |t|
-    t.integer  "video_id"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "videos_of_users", ["video_id", "user_id"], name: "index_videos_of_users_on_video_id_and_user_id", unique: true, using: :btree
 
 end
