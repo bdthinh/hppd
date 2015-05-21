@@ -1,0 +1,35 @@
+defaults: &defaults
+  mailer:
+    sender: "jinuosvn@gmail.com"
+  action_mailer:
+    address: "smtp.gmail.com"
+    port: 587
+    domain: "gmail.com"
+    user_name: "jinuosvn@gmail.com"
+    password: "weroarwithfour"
+    authentication: "plain"
+  api_keys:
+    facebook:
+      api_key: '390654307787558'
+      api_secret: 'd5d2baa10a004c9d86d461e04b94790a'
+      scope: ''
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  mailer_sender: "jinuosvn@gmail.com"
+  action_mailer:
+    address: "smtp.gmail.com"
+    port: 587
+    domain: "gmail.com"
+    user_name: "jinuosvn@gmail.com"
+    password: "weroarwithfour"
+    authentication: "plain"
+  api_keys:
+    facebook:
+      api_key: '1396475660677893'
+      api_secret: '638809c3656b37c5c52312dab381a88a'
+      scope: ''
