@@ -1,6 +1,6 @@
 class CreateCategoriesOfPosts < ActiveRecord::Migration
   def change
-    create_table :categories_of_posts, id: false do |t|
+    create_table :categories_of_posts do |t|
       t.integer :post_id
       t.integer :category_id
       t.timestamps null: false

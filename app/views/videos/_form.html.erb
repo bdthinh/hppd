@@ -10,8 +10,24 @@
       </ul>
     </div>
   <% end %>
-
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :subtitle %>
+    <%= f.text_field :subtitle, class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label "Upload video" %>
+    <%= f.file_field :file %>
+  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Submit", class: "btn btn-default" %>
+    <%= link_to "Back", videos_path, class: "btn btn-default" %>
   </div>
 <% end %>

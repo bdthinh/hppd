@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20150521192213) do
 
   add_index "categories", ["name"], name: "index_categories_on_name", unique: true, using: :btree
 
-  create_table "categories_of_posts", id: false, force: :cascade do |t|
+  create_table "categories_of_posts", force: :cascade do |t|
     t.integer  "post_id"
     t.integer  "category_id"
     t.datetime "created_at",  null: false
@@ -44,20 +44,6 @@ ActiveRecord::Schema.define(version: 20150521192213) do
 
   add_index "posts", ["title"], name: "index_posts_on_title", unique: true, using: :btree
 
-  create_table "user_profiles", force: :cascade do |t|
-    t.string   "phone_number"
-    t.string   "name"
-    t.datetime "birthdate"
-    t.string   "address"
-    t.string   "city"
-    t.string   "avatar_url"
-    t.integer  "user_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "user_profiles", ["user_id"], name: "index_user_profiles_on_user_id", unique: true, using: :btree
-
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
@@ -70,6 +56,12 @@ ActiveRecord::Schema.define(version: 20150521192213) do
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
     t.boolean  "is_admin",               default: false
+    t.string   "phone_number"
+    t.string   "name"
+    t.datetime "birthdate"
+    t.string   "address"
+    t.string   "city"
+    t.string   "avatar_url"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "provider"
@@ -79,7 +71,7 @@ ActiveRecord::Schema.define(version: 20150521192213) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "video_votes_of_users", id: false, force: :cascade do |t|
+  create_table "video_votes_of_users", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "video_id"
     t.datetime "created_at", null: false
@@ -93,7 +85,7 @@ ActiveRecord::Schema.define(version: 20150521192213) do
     t.string   "title"
     t.string   "subtitle"
     t.text     "description"
-    t.integer  "votes"
+    t.integer  "votes",           default: 0
     t.integer  "user_id"
     t.boolean  "is_published",    default: false
     t.boolean  "is_showed_on_tv", default: false

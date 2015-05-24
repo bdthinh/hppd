@@ -1,0 +1,15 @@
+<div id="flash">
+<% if notice || alert %>
+  <div class="notifyjs-corner">
+    <% if notice %>
+      <script>
+        $.notify("<%=j notice %>", {className: "success"});
+      </script>
+    <% elsif alert %>
+      <script>
+        $.notify("<%=j alert %>", {className: "warn"});
+      </script>
+    <% end %>
+  </div>
+<% end %>
+</div>

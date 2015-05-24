@@ -1,6 +1,6 @@
 class CreateVideoVotesOfUsers < ActiveRecord::Migration
   def change
-    create_table :video_votes_of_users, id: false do |t|
+    create_table :video_votes_of_users do |t|
       t.integer :user_id
       t.integer :video_id
 

@@ -43,10 +43,12 @@ gem 'lazyload-rails'
 # Use Unicorn as the app server
 # gem 'unicorn'
 gem 'puma'
+gem 'bower'
 gem 'carrierwave'
+gem 'carrierwave-video'
 gem 'mini_magick'
 gem 'fog-aws'
-gem 'sidekiq', '3.2.5'
+# gem 'sidekiq', '3.2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

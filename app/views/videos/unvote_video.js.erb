@@ -1,0 +1,2 @@
+$("#video_vote_<%= @video.id %>").html("<%= @video.reload.votes%>")
+$("#video_<%= @video.id %>_vote_section").html("<%=j render 'videos/vote_section'%>")

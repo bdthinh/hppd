@@ -19,7 +19,12 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.inet     :current_sign_in_ip
       t.inet     :last_sign_in_ip
       t.boolean  :is_admin, default: false
-
+      t.string :phone_number
+      t.string  :name
+      t.datetime :birthdate
+      t.string  :address
+      t.string  :city
+      t.string :avatar_url
       ## Confirmable
       # t.string   :confirmation_token
       # t.datetime :confirmed_at

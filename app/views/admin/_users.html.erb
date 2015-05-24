@@ -1,0 +1,11 @@
+<% @users.each_with_index do |user, index| %>
+  <tr>
+    <td>
+      <%= image_tag user.avatar_url, class: "profile-image img-circle avatar-img" %>
+    </td>
+    <td> <%= user.email %> </td>
+    <td> <%= user.name %> </td>
+    <td> <%= user.birthdate %> </td>
+    <td> <%= link_to "Details", user_profile_path(user) %> </td>
+  </tr>
+<% end %>

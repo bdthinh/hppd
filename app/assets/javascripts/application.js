@@ -13,4 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
+//= require notify.min
+//= require bootstrap-datepicker.min
+//= require video.js/dist/video-js/video
 //= require_tree .

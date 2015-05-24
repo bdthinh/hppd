@@ -1,0 +1,19 @@
+  <% if user_signed_in? %>
+  <li class="dropdown">
+    <% if current_user.is_admin? %>
+      <%= render 'admin/current_admin' %>
+    <% else %>
+      <%= render 'users/current_user' %>
+    <% end %>
+  </li>
+<% else %>
+  <li>
+    <% if controller_name != 'sessions' %>
+      <%= link_to "Sign in", new_user_session_path %>
+    <% end %>
+  </li>
+  <li><% if controller_name != 'registrations' %>
+      <%= link_to "Sign up", new_user_registration_path %>
+    <% end %>
+  </li>
+<% end %>

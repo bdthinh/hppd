@@ -1,6 +1,7 @@
 class VideosController < ApplicationController
-  before_action :set_video, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_video, only: [:show, :edit, :update, :destroy, :vote_video, :unvote_video]
+  skip_before_action :authenticate_user!, only: [:index, :show]
+  before_action :authorize_user_videos!, only: [:edit, :update, :destroy]
   # GET /videos
   # GET /videos.json
   def index
@@ -24,8 +25,11 @@ class VideosController < ApplicationController
   # POST /videos
   # POST /videos.json
   def create
+    uploader = VideoUploader.new
+    uploader.store!(file_params[:file])
+    params[:video][:video_url] = uploader.url
     @video = Video.new(video_params)
-
+    @video.update(user_id: current_user.id)
     respond_to do |format|
       if @video.save
         format.html { redirect_to @video, notice: 'Video was successfully created.' }
@@ -40,6 +44,11 @@ class VideosController < ApplicationController
   # PATCH/PUT /videos/1
   # PATCH/PUT /videos/1.json
   def update
+    if file_param[:file].present?
+      uploader = VideoUploader.new
+      uploader.store!(file_params[:file])
+      params[:video][:video_url] = uploader.url
+    end
     respond_to do |format|
       if @video.update(video_params)
         format.html { redirect_to @video, notice: 'Video was successfully updated.' }
@@ -60,7 +69,14 @@ class VideosController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  def vote_video
+    @video_vote = VideoVotesOfUser.new(video_id: params[:id], user_id: current_user.id)
+    @video_vote.save
+  end
+  def unvote_video
+    @video_vote = VideoVotesOfUser.where({video_id: params[:id], user_id: current_user.id})
+    @video_vote.destroy_all
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_video
@@ -69,6 +85,9 @@ class VideosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def video_params
-      params[:video]
+      params.require(:video).permit(:video_url, :title, :subtitle, :description, :is_published, :is_showed_on_tv, :showed_date)
+    end
+    def file_params
+      params.require(:video).permit(:file)
     end
 end

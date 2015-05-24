@@ -1,0 +1,5 @@
+<% if current_user.voted?(@video) %>
+  <%= link_to "Unvote", unvote_video_path(@video), method: :post, remote: true, class: "btn" %>
+<% else %>
+  <%= link_to 'Vote', vote_video_path(@video), method: :post, remote: true, class: "btn" %>
+<% end %>

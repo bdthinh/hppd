@@ -19,14 +19,14 @@ pre {
 }
 
 a {
-  color: #000;
-  &:visited {
-    color: #666;
-  }
-  &:hover {
-    color: #fff;
-    background-color: #000;
-  }
+  color: #21b384 !important;
+  // &:visited {
+  //   color: #666;
+  // }
+  // &:hover {
+  //   color: #fff;
+  //   background-color: #000;
+  // }
 }
 
 div {
@@ -66,4 +66,8 @@ div {
     font-size: 12px;
     list-style: square;
   }
+}
+.avatar-img{
+  width: 25px;
+  height: 25px;
 }

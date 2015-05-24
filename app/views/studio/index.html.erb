@@ -1,0 +1,18 @@
+<h1>Index</h1>
+<%= link_to "Sign in", new_user_session_path %>
+<br>
+<%= link_to "Sign up", new_user_registration_path %>
+<br>
+<%= link_to "Change password", edit_user_registration_path %>
+<br>
+<%= link_to "Categories", categories_path %>
+<br>
+<%= link_to "Videos", videos_path %>
+<br>
+<%= link_to "Posts", posts_path %>
+<br>
+<% if current_user && current_user.is_admin? %>
+  <%= link_to "List Users", show_users_path %>
+  <br>
+  <%= link_to "List Videos", show_videos_path %>
+<% end %>

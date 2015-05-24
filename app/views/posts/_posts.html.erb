@@ -1,0 +1,12 @@
+<% @posts.each do |post| %>
+  <tr>
+    <td><%= post.title %></td>
+    <td><%= post.admin.email %></td>
+    <td><%= post.categories.each {|category|} %></td>
+    <td>
+      <%= link_to "Show", post %>
+      <%= link_to "Edit", edit_post_path(post) %>
+      <%= link_to "Destroy", post, method: :delete, data: {confirm: "Are you sure?"} %>
+    </td>
+  </tr>
+<% end %>
