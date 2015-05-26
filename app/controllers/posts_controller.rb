@@ -15,10 +15,13 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
+    @categories = Category.all
   end
 
   # GET /posts/1/edit
   def edit
+    @categories = Category.all
+    @categories_of_post = CategoriesOfPost.where(post_id: params[:id])
   end
 
   # POST /posts
@@ -28,6 +31,9 @@ class PostsController < ApplicationController
     @post.update(admin_id: current_user.id)
     respond_to do |format|
       if @post.save
+        category_ids_param.each do |category_id|
+          CategoriesOfPost.where(post_id: @post.id, category_id: category_id).first_or_create
+        end
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
@@ -40,8 +46,17 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
+    category_ids_of_post = CategoriesOfPost.where(post_id: params[:id]).pluck(:category_id).map(&:to_s)
+    add_ids = category_ids_param - category_ids_of_post
+    del_ids = category_ids_of_post - category_ids_param
     respond_to do |format|
       if @post.update(post_params)
+        add_ids.each do |category_id|
+          CategoriesOfPost.where(post_id: @post.id, category_id: category_id).first_or_create
+        end
+        del_ids.each do |category_id|
+          CategoriesOfPost.where(post_id: @post.id, category_id: category_id).destroy_all
+        end
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
       else
@@ -70,5 +85,8 @@ class PostsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
       params.require(:post).permit(:title, :subtitle, :content)
+    end
+    def category_ids_param
+      params[:category_ids] || []
     end
 end

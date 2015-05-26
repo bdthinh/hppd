@@ -10,17 +10,35 @@
       </ul>
     </div>
   <% end %>
-  <div class="field"><%= f.label :title %>
-    <%= f.text_field :title %></div>
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control" %></div>
   <div class="field">
     <%= f.label :subtitle %>
-    <%= f.text_field :subtitle %>
+    <%= f.text_field :subtitle, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label :content %>
-    <%= f.text_area :content %>
+    <% @categories.each do |category| %>
+      <% if @post.categories.include? category %>
+        <%= check_box_tag "category_ids[]", category.id, "checked" %> <%= category.name %>
+      <% else %>
+        <%= check_box_tag "category_ids[]", category.id %> <%= category.name %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= render 'posts/quill' %>
+    <%= f.hidden_field :content %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <script>
+      $(function() {
+        $('form').on('submit', function(e){
+          // $('#post_content').val($('#ql-editor-1').html());
+          $('#post_content').val(advancedEditor.getHTML());
+        });
+      });
+    </script>
+    <%= f.submit "Post", class: "btn btn-default" %>
   </div>
 <% end %>

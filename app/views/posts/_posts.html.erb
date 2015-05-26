@@ -2,7 +2,7 @@
   <tr>
     <td><%= post.title %></td>
     <td><%= post.admin.email %></td>
-    <td><%= post.categories.each {|category|} %></td>
+    <td><%= post.categories.pluck(:name) %></td>
     <td>
       <%= link_to "Show", post %>
       <%= link_to "Edit", edit_post_path(post) %>

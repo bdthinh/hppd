@@ -1,0 +1,34 @@
+#content-container {
+  margin: auto;
+}
+#formatting-container {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ccc;
+  padding: 5px 12px;
+}
+#formatting-container .ql-active,
+#formatting-container button:hover {
+  color: #008000;
+  font-weight: bold;
+}
+#editor-container {
+  height: 600px;
+}
+#editor-wrapper {
+  border: 1px solid #aaa;
+  box-shadow: 0 0 2px 2px #ddd;
+}
+.advanced-wrapper {
+  width: 100%;
+}
+.editor-container {
+  height: 400px;
+}
+.basic-wrapper .toolbar-container {
+  padding: 8px 14px;
+}
+.basic-wrapper .toolbar-container .ql-active,
+.basic-wrapper .toolbar-container button:hover {
+  color: #008000;
+  font-weight: bold;
+}
