@@ -1,18 +1,38 @@
 <h1>Index</h1>
-<%= link_to "Sign in", new_user_session_path %>
-<br>
-<%= link_to "Sign up", new_user_registration_path %>
-<br>
-<%= link_to "Change password", edit_user_registration_path %>
-<br>
-<%= link_to "Categories", categories_path %>
-<br>
-<%= link_to "Videos", videos_path %>
-<br>
-<%= link_to "Posts", posts_path %>
-<br>
-<% if current_user && current_user.is_admin? %>
-  <%= link_to "List Users", show_users_path %>
-  <br>
-  <%= link_to "List Videos", show_videos_path %>
+<%= form_tag root_path, method: :post, remote: true, id: "search-form" do %>
+  <p>
+    <%= radio_button_tag "option", "all", true %> All
+	  <%= radio_button_tag "option", "published" %> Published
+  	<%= radio_button_tag "option", "showed" %> Showed
+  	<%= button_tag "Clear", type: "button" %>
+  </p>
+  <div class="input-group form-group">
+    <script>
+      $(function(){
+      	$('#search-btn').click(function(e){
+      		$('form#search-form').submit();
+      	});
+      	$('button[name=button]').click(function(e){
+      		e.preventDefault();
+      		$('#search').val('');
+      		$('form#search-form').submit();
+      	});
+      });
+    </script>
+    <%= text_field_tag "search", params[:search] , class: "form-control"%>
+    <span class="input-group-addon" id="search-btn">
+      <i class="fa fa-icon fa-search"></i>
+    </span>
+  </div>
 <% end %>
+<script>
+  $(function(){
+    $('input[type=radio][name=option]').on('change', function(e){
+      $('form#search-form').submit();
+    });
+  });
+</script>
+<br>
+<div id="videos">
+  <%= render 'videos/videos' %>
+</div>

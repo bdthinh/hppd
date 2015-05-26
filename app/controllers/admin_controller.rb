@@ -2,7 +2,8 @@ class AdminController < ApplicationController
   before_action :authenticate_admin!
   before_action :set_video, only: [:publish_video, :unpublish_video, :assign_video_showed_on_tv, :unassign_video_showed_on_tv]
   def show_users
-    @users = User.where(is_admin: false)
+    # @users = User.where(is_admin: false)
+    @users = User.all.order(is_admin: :desc)
   end
   def publish_video
     @video.update(is_published: true)

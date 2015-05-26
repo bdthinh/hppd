@@ -26,6 +26,6 @@ module Eaststudio
     config.assets.paths << Rails.root.join('vendor', 'assets', 'javascripts')
     config.assets.paths << Rails.root.join('vendor', 'assets', 'stylesheets')
     config.assets.paths << Rails.root.join('vendor', 'assets', 'fonts')
-    # config.active_job.queue_adapter = :sidekiq
+    config.active_job.queue_adapter = :sidekiq
   end
 end

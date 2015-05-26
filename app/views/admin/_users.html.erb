@@ -3,9 +3,15 @@
     <td>
       <%= image_tag user.avatar_url, class: "profile-image img-circle avatar-img" %>
     </td>
-    <td> <%= user.email %> </td>
+    <td> <%= user.email %>
+      <% if user.is_admin? %>
+        <span class="label label-success" style="float:right;">admin</span>
+      <% else %>
+      <span class="label label-primary" style="float:right;">user</span>
+      <% end %>
+    </td>
     <td> <%= user.name %> </td>
     <td> <%= user.birthdate %> </td>
-    <td> <%= link_to "Details", user_profile_path(user) %> </td>
+    <td> <%= link_to "Details", public_profile_path(user) %> </td>
   </tr>
 <% end %>

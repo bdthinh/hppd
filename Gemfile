@@ -30,6 +30,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'devise'
+gem 'devise-async'
 gem 'omniauth'
 gem 'omniauth-facebook'
 
@@ -48,7 +49,10 @@ gem 'carrierwave'
 gem 'carrierwave-video'
 gem 'mini_magick'
 gem 'fog-aws'
-# gem 'sidekiq', '3.2.5'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
+gem 'sidekiq', '3.2.5'
+gem 'sinatra', require: nil
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

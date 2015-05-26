@@ -4,6 +4,7 @@
     <title>Eaststudio</title>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
     <%= csrf_meta_tags %>
   </head>
   <body>
@@ -11,7 +12,7 @@
     <%= render 'layouts/flash' %>
     <div class="container">
       <div class="row">
-        <div class="col-md-6 col-md-offset-3"><%= yield %></div>
+        <div class="col-md-10 col-md-offset-1"><%= yield %></div>
       </div>
     </div>
     <%= render 'layouts/footer' %>

@@ -16,4 +16,5 @@
 //= require notify.min
 //= require bootstrap-datepicker.min
 //= require video.js/dist/video-js/video
+//= require angular/angular
 //= require_tree .

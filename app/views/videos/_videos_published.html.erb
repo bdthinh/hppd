@@ -1,0 +1,11 @@
+<% @videos.each do |video| %>
+  <% if video.is_published? %>
+    <div style="float: left; margin-left: 40px;">
+      <%= image_tag video.thumbnail_url, style:"width: 196px; height: 110px;", id: "video_#{video.id}" %>
+      <p><b><%= video.title %></b> | by <%= video.user.email %> | <i id="video_vote_<%= video.id%>"><%= video.votes %></i> votes </p>
+      <p><%= video.is_published ? "published" : "not published" %></p>
+      <p><%= video.is_showed_on_tv ? "showed at #{video.showed_date}" : "not showed" %></p>
+      <%= link_to 'Details', video, class: "btn btn-default" %>
+    </div>
+  <% end %>
+<% end %>

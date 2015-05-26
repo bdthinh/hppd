@@ -3,10 +3,13 @@ Rails.application.routes.draw do
   resources :posts
   resources :videos
   resources :user_profiles
+
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
   root  "studio#index"
+  post "/", to: "studio#index"
   get   "introduction", to: "studio#introduction", as: :introduction
+  get "user_profiles/:id/public_profile", to: "user_profiles#public_profile", as: :public_profile
   get   "admin/users", to: "admin#show_users", as: :show_users
   get   "admin/videos", to: "admin#show_videos", as: :show_videos
   post "admin/videos/:video_id/publish", to: "admin#publish_video", as: :publish_video
@@ -70,4 +73,7 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
 end
+

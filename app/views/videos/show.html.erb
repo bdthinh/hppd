@@ -1,12 +1,22 @@
 <video id="video_<%= @video.id %>" class="video-js vjs-default-skin"
   controls preload="auto" width="640" height="480"
   data-setup='{}'>
- <source src="<%= @video.video_url%>" type='video/mp4' />
- <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+  <source src="<%= @video.video_url%>" type='video/mp4' />
+  <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
 </video>
-<p><b><%= @video.title %></b> | by <%= @video.user.email %> | <%= @video.votes %> votes </p>
+<p><b><%= @video.title %></b> | by <%= @video.user.email %> | <i id="video_vote_<%= @video.id%>"><%= @video.votes %></i> votes </p>
 <p><%= @video.is_published ? "published" : "not published" %></p>
 <p><%= @video.is_showed_on_tv ? "showed at #{@video.showed_date}" : "not showed" %></p>
-
-<%= link_to 'Edit', edit_video_path(@video), class: "btn btn-default" %>
-<%= link_to 'Back', videos_path, class: "btn btn-default" %>
+<p id="video_<%= @video.id %>_vote_section">
+  <% if current_user %>
+    <% if current_user.voted?(@video) %>
+      <%= link_to "Unvote", unvote_video_path(@video), method: :post, remote: true, class: "btn" %>
+    <% else %>
+      <%= link_to 'Vote', vote_video_path(@video), method: :post, remote: true, class: "btn" %>
+    <% end %>
+  <% end %>
+</p>
+<% if current_user.is_owner?(@video) %>
+	<%= link_to 'Edit', edit_video_path(@video), class: "btn btn-default" %>
+<% end %>
+<%= link_to 'Back', root_path, class: "btn btn-default" %>

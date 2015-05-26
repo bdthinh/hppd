@@ -15,3 +15,4 @@
 .ruby-version
 .rbenv-gemsets
 config/database.yml
+dump.rdb

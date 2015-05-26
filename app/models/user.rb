@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable, :async,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
   has_many :posts
   has_many :videos
@@ -24,5 +24,8 @@ class User < ActiveRecord::Base
   end
   def voted?(video)
     return video_votes.pluck(:id).include?(video.id) ? true : false
+  end
+  def is_owner?(video)
+    return id == video.user_id
   end
 end

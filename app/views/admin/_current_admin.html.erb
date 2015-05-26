@@ -1,12 +1,16 @@
 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-<%= image_tag current_user.avatar_url, class: 'profile-image img-circle avatar-img'%>
-<span id="current_admin" ><%= current_user.name %></span>
-<span class = 'caret'></span>
+  <%= image_tag current_user.avatar_url, class: 'profile-image img-circle avatar-img'%>
+  <span id="current_admin" ><%= current_user.name %></span>
+  <span class = 'caret'></span>
 </a>
 <ul class="dropdown-menu" role="menu">
-<li><span class="menu-drop-item"><i class="fa fa-user"></i><%= link_to ' Profile', user_profile_path(current_user) %></span></li>
-  <li><span class="menu-drop-item"><i class="fa fa-sign-out"></i><%= link_to ' Logout', destroy_user_session_path, :method => :delete %></span></li>
+  <li><span class="menu-drop-item"><i class="fa fa-user"></i><%= link_to ' Profile', user_profile_path(current_user) %></span></li>
   <% unless(current_user.from_omniauth?) %>
-  <li><span class="menu-drop-item"><i class="fa fa-wrench"></i><%= link_to ' Change password', edit_user_registration_path %></span></li>
+    <li><span class="menu-drop-item"><i class="fa fa-wrench"></i><%= link_to ' Change password', edit_user_registration_path %></span></li>
   <% end %>
+  <li><span class="menu-drop-item"><i class="fa fa-wrench"></i><%= link_to ' Categories', categories_path %></span></li>
+  <li><span class="menu-drop-item"><i class="fa fa-wrench"></i><%= link_to ' Posts', posts_path %></span></li>
+  <li><span class="menu-drop-item"><i class="fa fa-wrench"></i><%= link_to ' Promote', show_videos_path %></span></li>
+  <li><span class="menu-drop-item"><i class="fa fa-wrench"></i><%= link_to ' Users',show_users_path %></span></li>
+  <li><span class="menu-drop-item"><i class="fa fa-sign-out"></i><%= link_to ' Logout', destroy_user_session_path, :method => :delete %></span></li>
 </ul>

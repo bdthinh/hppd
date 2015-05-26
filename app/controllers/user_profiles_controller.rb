@@ -1,7 +1,9 @@
 class UserProfilesController < ApplicationController
-  before_action :set_user_profile, only: [:show, :edit, :update]
+  before_action :set_user_profile, only: [:show, :edit, :update, :public_profile]
   before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: [:public_profile]
   before_action :authorize_user_profile!
+  skip_before_action :authorize_user_profile!, only: [:public_profile]
 
   def show
   end
@@ -22,6 +24,9 @@ class UserProfilesController < ApplicationController
         format.html { render :edit }
       end
     end
+  end
+  def public_profile
+    @videos = @user.videos
   end
 
   private
