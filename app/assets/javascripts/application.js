@@ -17,4 +17,5 @@
 //= require bootstrap-datepicker.min
 //= require video.js/dist/video-js/video
 //= require angular/angular
+//= require quill/quill
 //= require_tree .

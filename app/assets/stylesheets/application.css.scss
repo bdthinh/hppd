@@ -13,6 +13,8 @@
  *= require_tree .
  *= require bootstrap-datepicker3.min
  *= require video.js/dist/video-js/video-js
+ *= require quill/quill.snow.css
+ *= require quill/quill.advanced.css
  */
 @import "bootstrap";
 @import "bootstrap-sprockets";

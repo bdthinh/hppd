@@ -6,13 +6,12 @@
   border-bottom: 1px solid #ccc;
   padding: 5px 12px;
 }
-#formatting-container .ql-active,
 #formatting-container button:hover {
   color: #008000;
   font-weight: bold;
 }
 #editor-container {
-  height: 600px;
+  height: 400px !important;
 }
 #editor-wrapper {
   border: 1px solid #aaa;
@@ -21,14 +20,11 @@
 .advanced-wrapper {
   width: 100%;
 }
-.editor-container {
-  height: 400px;
-}
-.basic-wrapper .toolbar-container {
+.toolbar-container {
   padding: 8px 14px;
 }
-.basic-wrapper .toolbar-container .ql-active,
-.basic-wrapper .toolbar-container button:hover {
+#formatting-container .ql-active,
+.toolbar-container button:hover {
   color: #008000;
   font-weight: bold;
 }
