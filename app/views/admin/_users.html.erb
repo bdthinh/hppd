@@ -1,7 +1,7 @@
 <% @users.each_with_index do |user, index| %>
   <tr>
     <td>
-      <%= image_tag user.avatar_url, class: "profile-image img-circle avatar-img" %>
+      <%= image_tag user.avatar.url, class: "profile-image img-circle avatar-img" %>
     </td>
     <td> <%= user.email %>
       <% if user.is_admin? %>

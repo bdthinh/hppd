@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20150525112220) do
     t.datetime "birthdate"
     t.string   "address"
     t.string   "city"
-    t.string   "avatar_url"
+    t.string   "avatar"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "provider"
@@ -85,7 +85,8 @@ ActiveRecord::Schema.define(version: 20150525112220) do
   add_index "video_votes_of_users", ["user_id", "video_id"], name: "index_video_votes_of_users_on_user_id_and_video_id", unique: true, using: :btree
 
   create_table "videos", force: :cascade do |t|
-    t.string   "video_url"
+    t.string   "video"
+    t.string   "thumbnail"
     t.string   "title"
     t.string   "subtitle"
     t.text     "description"
@@ -96,7 +97,6 @@ ActiveRecord::Schema.define(version: 20150525112220) do
     t.datetime "showed_date"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
-    t.string   "thumbnail_url"
   end
 
   add_index "videos", ["title"], name: "index_videos_on_title", unique: true, using: :btree

@@ -24,7 +24,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.datetime :birthdate
       t.string  :address
       t.string  :city
-      t.string :avatar_url
+      t.string :avatar
       ## Confirmable
       # t.string   :confirmation_token
       # t.datetime :confirmed_at

@@ -25,18 +25,17 @@ class VideosController < ApplicationController
   # POST /videos
   # POST /videos.json
   def create
-    uploader = VideoUploader.new
-    uploader.store!(file_params[:file])
-    params[:video][:video_url] = uploader.url
+    debugger
     @video = Video.new(video_params)
     @video.update(user_id: current_user.id)
     respond_to do |format|
       if @video.save
-        format.html { redirect_to @video, notice: 'Video was successfully created.' }
-        format.json { render :show, status: :created, location: @video }
+        format.html { render json: {files: [@video.to_jq_upload]}, status: :created, location: @video }
+        format.json {
+          render :json => [@video.to_jq_upload].to_json
+        }
       else
         format.html { render :new }
-        format.json { render json: @video.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -44,11 +43,6 @@ class VideosController < ApplicationController
   # PATCH/PUT /videos/1
   # PATCH/PUT /videos/1.json
   def update
-    if file_param[:file].present?
-      uploader = VideoUploader.new
-      uploader.store!(file_params[:file])
-      params[:video][:video_url] = uploader.url
-    end
     respond_to do |format|
       if @video.update(video_params)
         format.html { redirect_to @video, notice: 'Video was successfully updated.' }
@@ -85,9 +79,6 @@ class VideosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def video_params
-      params.require(:video).permit(:video_url, :title, :subtitle, :description, :is_published, :is_showed_on_tv, :showed_date)
-    end
-    def file_params
-      params.require(:video).permit(:file)
+      params.require(:video).permit(:video, :title, :subtitle, :description, :is_published, :is_showed_on_tv, :showed_date)
     end
 end

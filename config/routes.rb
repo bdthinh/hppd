@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
   root  "studio#index"
+  get "/test", to: "studio#test"
   post "/", to: "studio#index"
   get   "introduction", to: "studio#introduction", as: :introduction
   get "user_profiles/:id/public_profile", to: "user_profiles#public_profile", as: :public_profile

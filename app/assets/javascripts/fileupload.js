@@ -1,0 +1,12 @@
+//= require jfu/tmpl.min
+//= require jfu/load-image.all.min
+//= require jfu/canvas-to-blob.min
+//= require jfu/jquery.iframe-transport
+//= require jfu/jquery.fileupload
+//= require jfu/jquery.fileupload-process
+//= require jfu/jquery.fileupload-image
+//= require jfu/jquery.fileupload-audio
+//= require jfu/jquery.fileupload-video
+//= require jfu/jquery.fileupload-validate
+//= require jfu/jquery.fileupload-ui
+//= require jfu/main

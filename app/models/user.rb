@@ -7,12 +7,13 @@ class User < ActiveRecord::Base
   has_many :videos
   has_many :video_votes_of_users
   has_many :video_votes, through: :video_votes_of_users, source: :video
+  mount_uploader :avatar, AvatarUploader
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
       user.name = auth.info.name
-      user.avatar_url = auth.info.image
+      # user.avatar_url = auth.info.image
       user.birthdate = auth.info.birthdate || nil
     end
   end

@@ -1,7 +1,8 @@
 class CreateVideos < ActiveRecord::Migration
   def change
     create_table :videos do |t|
-      t.string :video_url
+      t.string :video
+      t.string :thumbnail
       t.string :title
       t.string :subtitle
       t.text  :description

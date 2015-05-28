@@ -12,11 +12,6 @@ class UserProfilesController < ApplicationController
   end
 
   def update
-    if file_params[:file].present?
-      uploader = AvatarUploader.new
-      uploader.store!(file_params[:file])
-      params[:user][:avatar_url] = uploader.url
-    end
     respond_to do |format|
       if @user.update(user_profile_params)
         format.html { redirect_to user_profile_path, notice: 'User profile was successfully updated.' }
@@ -36,10 +31,7 @@ class UserProfilesController < ApplicationController
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def file_params
-    params.require(:user).permit(:file)
-  end
   def user_profile_params
-    params.require(:user).permit(:name, :phone_number, :birthdate, :address, :city, :avatar_url)
+    params.require(:user).permit(:name, :phone_number, :birthdate, :address, :city, :avatar)
   end
 end

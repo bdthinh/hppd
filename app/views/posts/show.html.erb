@@ -2,12 +2,9 @@
 <h3>Subtitle: <%= @post.subtitle %></h3>
 <h3>Author: <%= @post.admin.email %></h3>
 <br>
-<p>Content:</p>
-<p>------------------------------------------------</p>
-<div id="post-content">
+<blockquote>
   <%= @post.content.html_safe %>
-</div>
-<p>------------------------------------------------</p>
+</blockquote>
 <i>Date: <%= @post.created_at %></i>
 <p>Categories: <%= @post.categories.pluck(:name) %>
 </p>

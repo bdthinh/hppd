@@ -12,10 +12,18 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require bootstrap-sprockets
 //= require notify.min
 //= require bootstrap-datepicker.min
 //= require video.js/dist/video-js/video
-//= require angular/angular
 //= require quill/quill
-//= require_tree .
+
+$.ajaxSetup({
+    statusCode: {
+        401: function() {
+            // Redirect the to the login page.
+            location.href = "/users/sign_in";
+        }
+    }
+});

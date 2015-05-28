@@ -6,7 +6,6 @@ class StudioController < ApplicationController
     else
       @videos = Video.all
     end
-    # @option = params[:option]
     case params[:option]
       when "published"
         @videos = @videos.where(is_published: true)
@@ -17,5 +16,8 @@ class StudioController < ApplicationController
   def introduction
   end
   def contact_us
+  end
+  def test
+    
   end
 end

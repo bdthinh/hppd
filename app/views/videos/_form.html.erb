@@ -1,12 +1,11 @@
-<%= form_for(@video) do |f| %>
+<%= form_for(@video, :html => { :multipart => false, :id => "fileupload"  }) do |f| %>
   <% if false && @video.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@video.errors.count, "error") %> prohibited this video from being saved:</h2>
-
       <ul>
-      <% @video.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% @video.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
@@ -23,11 +22,14 @@
     <%= f.text_area :description, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label "Upload video" %>
-    <%= f.file_field :file %>
+    <%= render partial: 'videos/upload_video', locals: {f: f} %>
   </div>
-  <div class="actions">
-    <%= f.submit "Submit", class: "btn btn-default" %>
-    <%= link_to "Back", videos_path, class: "btn btn-default" %>
-  </div>
+  <button type="submit" class="btn btn-primary start">
+    <i class="fa fa-upload"></i>
+    <span>Upload</span>
+  </button>
+  <%= link_to videos_path, class: "btn btn-default" do %>
+    <i class="fa fa-times"></i>
+    Cancel
+  <% end %>
 <% end %>

@@ -11,10 +11,10 @@
     <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
       <ul class="nav navbar-nav">
         <li><a href="/"><i class="fa fa-home fa-fw"></i> Home</a></li>
-        <li><a href="<%= introduction_path %>"><i class="fa fa-book fa-fw"></i> Introduction</a></li>
-        <li><a href="<%= root_path %>"><i class="fa fa-book fa-fw"></i> Videos</a></li>
-        <li><a href="<%= posts_path %>"><i class="fa fa-book fa-fw"></i> Posts</a></li>
-        <li><a href="<%= contact_us_path %>"><i class="fa fa-book fa-fw"></i> Contact us</a></li>
+        <li><a href="<%= introduction_path %>"><i class="fa fa-leanpub"></i> Introduction</a></li>
+        <li><a href="<%= new_video_path %>"><i class="fa fa-video-camera"></i> Upload new video</a></li>
+        <li><a href="<%= posts_path %>"><i class="fa fa-newspaper-o"></i> Posts</a></li>
+        <li><a href="<%= contact_us_path %>"><i class="fa fa-at"></i> Contact us</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <%= render("layouts/user_status") %>
