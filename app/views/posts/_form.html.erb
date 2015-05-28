@@ -18,6 +18,7 @@
     <%= f.text_field :subtitle, class: "form-control" %>
   </div>
   <div class="field">
+    <%= f.label :category %>
     <% @categories.each do |category| %>
       <% if @post.categories.include? category %>
         <%= check_box_tag "category_ids[]", category.id, "checked" %> <%= category.name %>

@@ -9,4 +9,3 @@
 //= require jfu/jquery.fileupload-video
 //= require jfu/jquery.fileupload-validate
 //= require jfu/jquery.fileupload-ui
-//= require jfu/main

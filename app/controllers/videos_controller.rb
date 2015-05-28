@@ -1,11 +1,11 @@
 class VideosController < ApplicationController
   before_action :set_video, only: [:show, :edit, :update, :destroy, :vote_video, :unvote_video]
-  skip_before_action :authenticate_user!, only: [:index, :show]
+  skip_before_action :authenticate_user!, only: [:show]
   before_action :authorize_user_videos!, only: [:edit, :update, :destroy]
   # GET /videos
   # GET /videos.json
   def index
-    @videos = Video.all
+    @videos = Video.where(user_id: current_user.id)
   end
 
   # GET /videos/1
@@ -25,14 +25,13 @@ class VideosController < ApplicationController
   # POST /videos
   # POST /videos.json
   def create
-    debugger
     @video = Video.new(video_params)
     @video.update(user_id: current_user.id)
     respond_to do |format|
       if @video.save
-        format.html { render json: {files: [@video.to_jq_upload]}, status: :created, location: @video }
-        format.json {
-          render :json => [@video.to_jq_upload].to_json
+        # format.html { redirect_to @video, notice: 'Video was successfully uploaded.' }
+        format.html {
+          render json: { url: video_path(@video), message: "Uploaded successfully." }, status: :created, location: @video
         }
       else
         format.html { render :new }
@@ -45,8 +44,9 @@ class VideosController < ApplicationController
   def update
     respond_to do |format|
       if @video.update(video_params)
-        format.html { redirect_to @video, notice: 'Video was successfully updated.' }
-        format.json { render :show, status: :ok, location: @video }
+        format.html {
+          render json: { url: video_path(@video), message: "Updated successfully." }, status: :updated, location: @video
+        }
       else
         format.html { render :edit }
         format.json { render json: @video.errors, status: :unprocessable_entity }

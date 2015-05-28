@@ -1,5 +1,5 @@
 <video id="video_<%= @video.id %>" class="video-js vjs-default-skin"
-  controls preload="auto" width="640" height="480"
+  controls preload="auto" width="480" height="360"
   data-setup='{}'>
   <source src="<%= @video.video.url%>" type='video/mp4' />
   <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
@@ -16,5 +16,6 @@
 </p>
 <% if current_user && current_user.is_owner?(@video) %>
 	<%= link_to 'Edit', edit_video_path(@video), class: "btn btn-default" %>
+  <%= link_to 'Take it off', video_path(@video), method: :delete, data: { confirm: "Are you sure" }, class: "btn btn-default" %>
 <% end %>
 <%= link_to 'Back', root_path, class: "btn btn-default" %>

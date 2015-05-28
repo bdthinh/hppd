@@ -23,6 +23,14 @@
   <table role="presentation" class="table table-striped">
     <tbody class="files"></tbody>
   </table>
+  <button type="submit" class="btn btn-primary start">
+    <i class="fa fa-upload"></i>
+    <span>Upload</span>
+  </button>
+  <%= link_to videos_path, class: "btn btn-default" do %>
+    <i class="fa fa-times"></i>
+    Cancel
+  <% end %>
 </div>
 <script>
   var fileUploadErrors = {
@@ -35,73 +43,103 @@
   };
 </script>
 <script id="template-upload" type="text/x-tmpl">
-{% for (var i=0, file; file=o.files[i]; i++) { %}
-    <tr class="template-upload fade">
-        <td>
-            <span class="preview"></span>
-        </td>
-        <td>
-            <p class="name">{%=file.name%}</p>
-            <strong class="error text-danger"></strong>
-        </td>
-        <td>
-            <p class="size">Processing...</p>
-            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
-        </td>
-        <td>
-            {% if (!i && !o.options.autoUpload) { %}
-                <button class="btn btn-primary start" disabled>
-                    <span>Start</span>
-                </button>
-            {% } %}
-            {% if (!i) { %}
-                <button class="btn btn-warning cancel">
-                    <span>Cancel</span>
-                </button>
-            {% } %}
-        </td>
-    </tr>
-{% } %}
+  {% for (var i=0, file; file=o.files[i]; i++) { %}
+      <tr class="template-upload fade">
+          <td>
+              <span class="preview"></span>
+          </td>
+          <td>
+              <p class="name">{%=file.name%}</p>
+              <strong class="error text-danger"></strong>
+          </td>
+          <td>
+              <p class="size">Processing...</p>
+              <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+          </td>
+          <td>
+              {% if (!i && !o.options.autoUpload) { %}
+                  <button class="btn btn-primary start" style="display:none;" disabled>
+                      <span>Start</span>
+                  </button>
+              {% } %}
+              {% if (!i) { %}
+                  <button class="btn btn-warning cancel">
+                      <span>Cancel</span>
+                  </button>
+              {% } %}
+          </td>
+      </tr>
+  {% } %}
 </script>
 <!-- The template to display files available for download -->
 <script id="template-download" type="text/x-tmpl">
-{% for (var i=0, file; file=o.files[i]; i++) { %}
-    <tr class="template-download fade">
-        <td>
-            <span class="preview">
-                {% if (file.thumbnailUrl) { %}
-                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
-                {% } %}
-            </span>
-        </td>
-        <td>
-            <p class="name">
-                {% if (file.url) { %}
-                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
-                {% } else { %}
-                    <span>{%=file.name%}</span>
-                {% } %}
-            </p>
-            {% if (file.error) { %}
-                <div><span class="label label-danger">Error</span> {%=file.error%}</div>
-            {% } %}
-        </td>
-        <td>
-            <span class="size">{%=o.formatFileSize(file.size)%}</span>
-        </td>
-        <td>
-            {% if (file.deleteUrl) { %}
-                <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
-                    <span>Delete</span>
-                </button>
-                <input type="checkbox" name="delete" value="1" class="toggle">
-            {% } else { %}
-                <button class="btn btn-warning cancel">
-                    <span>Cancel</span>
-                </button>
-            {% } %}
-        </td>
-    </tr>
-{% } %}
+  {% for (var i=0, file; file=o.files[i]; i++) { %}
+      <tr class="template-download fade">
+          <td>
+              <span class="preview">
+                  {% if (file.thumbnailUrl) { %}
+                      <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                  {% } %}
+              </span>
+          </td>
+          <td>
+              <p class="name">
+                  {% if (file.url) { %}
+                      <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
+                  {% } else { %}
+                      <span>{%=file.name%}</span>
+                  {% } %}
+              </p>
+              {% if (file.error) { %}
+                  <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+              {% } %}
+          </td>
+          <td>
+              <span class="size">{%=o.formatFileSize(file.size)%}</span>
+          </td>
+          <td>
+              {% if (file.deleteUrl) { %}
+                  <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                      <span>Delete</span>
+                  </button>
+                  <input type="checkbox" name="delete" value="1" class="toggle">
+              {% } else { %}
+                  <button class="btn btn-warning cancel">
+                      <span>Cancel</span>
+                  </button>
+              {% } %}
+          </td>
+      </tr>
+  {% } %}
 </script>
 <%= javascript_include_tag 'fileupload' %>
+<% if @video.persisted? %>
+  <script>
+    $(function() {
+      'use strict';
+      $('#fileupload').fileupload({
+          url: '/videos/<%= @video.id %>',
+          method: 'patch',
+          dataType: 'json',
+          done: function(e, data) {
+            alert(data.result.message);
+            window.location = data.result.url;
+          }
+      });
+    });
+  </script>
+<% else %>
+  <script>
+    $(function() {
+      'use strict';
+      $('#fileupload').fileupload({
+          url: '/videos',
+          dataType: 'json',
+          done: function(e, data) {
+            alert(data.result.message);
+            window.location = data.result.url;
+          }
+      });
+    });
+  </script>
+<% end %>
