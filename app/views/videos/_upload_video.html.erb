@@ -5,7 +5,7 @@
       <span class="btn btn-success fileinput-button">
         <i class="fa fa-file-video-o"></i>
         <span>Choose video...</span>
-        <%= f.file_field :video %>
+        <%= f.file_field :video, multiple: true %>
       </span>
       <span class="fileupload-process"></span>
     </div>
@@ -50,9 +50,10 @@
           </td>
           <td>
               <p class="name">{%=file.name%}</p>
+              <p class="size">{%=file.size%}</p>
               <strong class="error text-danger"></strong>
           </td>
-          <td>
+          <td style="display:none;">
               <p class="size">Processing...</p>
               <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
           </td>
@@ -100,11 +101,13 @@
           <td>
               {% if (file.deleteUrl) { %}
                   <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                      <i class="glyphicon glyphicon-trash"></i>
                       <span>Delete</span>
                   </button>
                   <input type="checkbox" name="delete" value="1" class="toggle">
               {% } else { %}
                   <button class="btn btn-warning cancel">
+                      <i class="glyphicon glyphicon-ban-circle"></i>
                       <span>Cancel</span>
                   </button>
               {% } %}
@@ -116,27 +119,29 @@
 <% if @video.persisted? %>
   <script>
     $(function() {
-      'use strict';
       $('#fileupload').fileupload({
           url: '/videos/<%= @video.id %>',
-          method: 'patch',
           dataType: 'json',
           done: function(e, data) {
-            alert(data.result.message);
             window.location = data.result.url;
           }
+      });
+      $('button[type=submit]').on('click', function(e){
+        if($('tbody.files tr').size() > 0)
+          $('.cancel').hide();
+        else{
+          $('form#fileupload').attr('format','html').submit();
+        }
       });
     });
   </script>
 <% else %>
   <script>
     $(function() {
-      'use strict';
       $('#fileupload').fileupload({
           url: '/videos',
           dataType: 'json',
           done: function(e, data) {
-            alert(data.result.message);
             window.location = data.result.url;
           }
       });

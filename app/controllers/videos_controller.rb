@@ -29,9 +29,9 @@ class VideosController < ApplicationController
     @video.update(user_id: current_user.id)
     respond_to do |format|
       if @video.save
-        # format.html { redirect_to @video, notice: 'Video was successfully uploaded.' }
-        format.html {
-          render json: { url: video_path(@video), message: "Uploaded successfully." }, status: :created, location: @video
+        format.html { redirect_to @video, notice: 'Video was successfully uploaded.' }
+        format.json {
+          render json: { files: [@video.to_jq_upload], url: video_path(@video), message: "Uploaded successfully." }, status: :created, location: @video
         }
       else
         format.html { render :new }
@@ -44,8 +44,9 @@ class VideosController < ApplicationController
   def update
     respond_to do |format|
       if @video.update(video_params)
-        format.html {
-          render json: { url: video_path(@video), message: "Updated successfully." }, status: :updated, location: @video
+        format.html { redirect_to @video, notice: 'Video was successfully updated.' }
+        format.json {
+         render json: { files: [@video.to_jq_upload], url: video_path(@video), message: "Uploaded successfully." }, status: :created, location: @video
         }
       else
         format.html { render :edit }
