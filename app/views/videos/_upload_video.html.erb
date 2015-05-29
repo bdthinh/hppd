@@ -4,8 +4,8 @@
       <!-- The fileinput-button span is used to style the file input field as button -->
       <span class="btn btn-success fileinput-button">
         <i class="fa fa-file-video-o"></i>
-        <span>Choose video...</span>
-        <%= f.file_field :video, multiple: true %>
+        <span>Choose a video...</span>
+        <%= f.file_field :video %>
       </span>
       <span class="fileupload-process"></span>
     </div>
@@ -59,7 +59,7 @@
           </td>
           <td>
               {% if (!i && !o.options.autoUpload) { %}
-                  <button class="btn btn-primary start" style="display:none;" disabled>
+                  <button class="btn btn-primary start" style="display:none;" name="start-each" disabled>
                       <span>Start</span>
                   </button>
               {% } %}
@@ -119,6 +119,13 @@
 <% if @video.persisted? %>
   <script>
     $(function() {
+      $('button[type=submit]').on('click', function(e){
+        if($('tbody.files tr').length > 0)
+          $('.cancel').hide();
+        else{
+          $('form#fileupload').attr('format','html').submit();
+        }
+      });
       $('#fileupload').fileupload({
           url: '/videos/<%= @video.id %>',
           dataType: 'json',
@@ -126,18 +133,28 @@
             window.location = data.result.url;
           }
       });
-      $('button[type=submit]').on('click', function(e){
-        if($('tbody.files tr').size() > 0)
-          $('.cancel').hide();
-        else{
-          $('form#fileupload').attr('format','html').submit();
-        }
-      });
     });
   </script>
 <% else %>
   <script>
     $(function() {
+      $('table[role=presentation]').on('add-row', function(){
+        if($('button.start[name=start-each][disabled]').length > 0){
+          $('span.fileinput-button').attr('disabled', 'disabled');
+          $('button[type=submit]').attr('disabled', 'disabled');
+        }
+      });
+      $('table[role=presentation').on('cancel-row', function(){
+        if($('button.start[name=start-each][disabled]').length == 1){
+          $('span.fileinput-button').removeAttr('disabled');
+          $('button[type=submit]').removeAttr('disabled');
+        }
+      })
+      $('span.fileinput-button').on('click', function(){
+        if($('tbody.files tr').length > 0) {
+          return false;
+        };
+      })
       $('#fileupload').fileupload({
           url: '/videos',
           dataType: 'json',

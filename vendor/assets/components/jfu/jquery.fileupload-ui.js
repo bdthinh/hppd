@@ -134,6 +134,7 @@
                         });
                     }
                 });
+                $('table[role=presentation]').trigger('add-row');
             },
             // Callback for the start of each file upload request:
             send: function (e, data) {
@@ -535,6 +536,7 @@
                 data.errorThrown = 'abort';
                 this._trigger('fail', e, data);
             }
+            $('table[role=presentation]').trigger('cancel-row');
         },
 
         _deleteHandler: function (e) {
