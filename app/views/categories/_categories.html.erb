@@ -2,7 +2,7 @@
   <tr>
     <td><%= category.name %></td>
     <td>
-    <%= link_to 'Edit', edit_category_path(category) %>
-    <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <%= link_to 'Edit', edit_category_path(category), class: "label label-primary" %>
+    <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: "label label-warning" %></td>
   </tr>
 <% end %>

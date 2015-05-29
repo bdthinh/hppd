@@ -1,39 +1,16 @@
 <% @videos.each_with_index do |video, index| %>
   <tr>
-    <td> <%= video.updated_at %> </td>
+    <td>
+      <%= video.created_at.strftime("%I:%M:%p") %>
+      <br>
+      <%= video.created_at.strftime("%d/%m/%Y") %>
+    </td>
     <td> <%= video.title %> </td>
     <td id="video_<%= video.id%>_status">
-      <span class="label label-primary">published<%=  %></span>
-      <span class="label label-success">showed<%=  %></span>
+      <%= render partial: 'admin/video_status', locals: {video: video} %>
     </td>
-    <td>
-      <%= link_to "Details", video, class: "btn btn-default" %>
-      <span id="video_<%= video.id %>_published_status">
-        <% if video.is_published? %>
-          <%= link_to "Unpublish", unpublish_video_path(video), method: :post, remote: true, class: "btn btn-default" %>
-        <% else %>
-          <%= link_to "Publish", publish_video_path(video), method: :post, remote: true, class: "btn btn-default" %>
-        <% end %>
-      </span>
-      <% if video.is_showed_on_tv? %>
-        <%= link_to "Unassign", unassign_video_path(video), method: :post, remote: true, class: "btn btn-default" %>
-      <% else %>
-        <%= form_tag assign_video_path(video), method: :post, remote: true, id: "assign-form" do %>
-          <%= submit_tag "Assign", class: "btn btn-default" %>
-          <script>
-            $(function(){
-              $("#video_<%= video.id %>_showed_date").datepicker({
-                format: "dd/mm/yyyy",
-                startDate: "01/01/2015",
-                endDate: "<%= Date.today %>",
-                defaultViewDate: {year: "<%= Date.today.year %>", month: "<%= Date.today.month %>", day: "<%= Date.today.day %>"}
-              });
-            })
-          </script>
-          <input type="text" id="video_<%= video.id %>_showed_date" name="showed_date" value="" placeholder="dd/mm/yyyy" class="form-control">
-
-        <% end %>
-      <% end %>
+    <td id="video_<%= video.id %>_actions">
+      <%= render partial: 'admin/video_actions', locals: {video: video} %>
     </td>
   </tr>
 <% end %>

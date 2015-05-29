@@ -1,12 +1,18 @@
 <h2>Title: <%= @post.title %></h2>
 <h3>Subtitle: <%= @post.subtitle %></h3>
+<p>
+  <i class="fa fa-tags"></i>
+  <% @post.categories.each do |category| %>
+    <span class="label label-primary">category.name</span>
+  <% end %>
+</p>
 <h3>Author: <%= @post.admin.email %></h3>
 <br>
 <blockquote>
   <%= @post.content.html_safe %>
 </blockquote>
 <i>Date: <%= @post.created_at %></i>
-<p>Categories: <%= @post.categories.pluck(:name) %>
-</p>
+
 <br>
-<%= link_to 'Edit', edit_post_path(@post)%> | <%= link_to 'Back', posts_path %>
+<%= link_to 'Edit', edit_post_path(@post), class: "btn btn-default" %>
+<%= link_to 'Back', posts_path, class: "btn btn-default" %>

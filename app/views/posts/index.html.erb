@@ -15,5 +15,5 @@
   </table>
 <% end %>
 <% if current_user && current_user.is_admin? %>
-  <%= link_to 'New Post', new_post_path %>
+  <%= link_to 'New Post', new_post_path, class: "btn btn-default" %>
 <% end %>

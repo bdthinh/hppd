@@ -4,16 +4,23 @@
       <%= image_tag "/img/default_thumbnail.png", style:"width: 196px; height: 110px;", id: "video_#{video.id}" %>
     <% end %>
     <p>
-    <%= link_to video do %>
-      <b><%= video.title %></b>
-    <% end %>
+      <%= link_to video do %>
+        <b><%= video.title %></b>
+      <% end %>
       | by
      <%= link_to public_profile_path(video.user) do %>
-     <%= video.user.email %>
-     <% end %>
+        <%= video.user.name %>
+      <% end %>
       |
-      <i id="video_vote_<%= video.id%>"><%= video.votes %></i> votes </p>
-    <p><%= video.is_published ? "published" : "not published" %></p>
-    <p><%= video.is_showed_on_tv ? "showed at #{video.showed_date}" : "not showed" %></p>
+      <i id="video_vote_<%= video.id%>">
+        <%= video.votes %></i>
+      <i class="fa fa-heart"></i>
+    </p>
+    <% if video.is_published %>
+      <span class="label label-primary"><%= video.is_published ? "published" : "not published" %></span>
+    <% end %>
+    <% if video.is_showed_on_tv %>
+      <span class="label label-success"><%= video.is_showed_on_tv ? "showed at #{video.showed_date}" : "not showed" %></span>
+    <% end %>
   </div>
 <% end %>

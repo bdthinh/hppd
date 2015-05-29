@@ -1,0 +1,29 @@
+<%= link_to "Details", video, class: "btn btn-default" %>
+<span>
+  <% if video.is_published? %>
+    <%= link_to "Unpublish", unpublish_video_path(video), method: :post, remote: true, class: "btn btn-default" %>
+  <% else %>
+    <%= link_to "Publish", publish_video_path(video), method: :post, remote: true, class: "btn btn-default" %>
+  <% end %>
+</span>
+<% if video.is_showed_on_tv? %>
+  <%= link_to "Unassign", unassign_video_path(video), method: :post, remote: true, class: "btn btn-default" %>
+<% else %>
+  <%= link_to "Assign", assign_video_path(video), class: "btn btn-default" %>
+  <% if false %>
+    <%= form_tag assign_video_path(video), method: :post, remote: true, id: "assign_form_#{video.id}" do %>
+      <%= submit_tag "Assign" %>
+      <script>
+        $(function(){
+          $("#video_<%= video.id %>_showed_date").datepicker({
+            format: "dd/mm/yyyy",
+            startDate: "01/01/2015",
+            endDate: "<%= Date.today %>",
+            defaultViewDate: {year: "<%= Date.today.year %>", month: "<%= Date.today.month %>", day: "<%= Date.today.day %>"}
+          });
+        })
+      </script>
+      <input type="text" id="video_<%= video.id %>_showed_date" name="showed_date" value="" placeholder="dd/mm/yyyy" class="form-control" style="border: 0;">
+    <% end %>
+  <% end %>
+<% end %>

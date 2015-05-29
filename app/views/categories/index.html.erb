@@ -1,14 +1,16 @@
 <h1>Categories</h1>
-<table class="table table-bordered table-striped table-hover">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody id="categories">
-    <%= render 'categories/categories' %>
-  </tbody>
-</table>
+<% if @categories.present? %>
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="categories">
+      <%= render 'categories/categories' %>
+    </tbody>
+  </table>
+<% end %>
 <br>
-<%= link_to 'New Category', new_category_path %>
+<%= link_to 'New Category', new_category_path, class: "btn btn-default" %>

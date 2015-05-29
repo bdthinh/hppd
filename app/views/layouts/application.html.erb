@@ -10,9 +10,11 @@
   <body>
     <%= render 'layouts/header' %>
     <%= render 'layouts/flash' %>
-    <div class="container">
+    <div id="page" class="container">
       <div class="row">
-        <div class="col-md-10 col-md-offset-1"><%= yield %></div>
+        <div class="col-md-10 col-md-offset-1">
+          <%= yield %>
+        </div>
       </div>
     </div>
     <%= render 'layouts/footer' %>

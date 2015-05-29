@@ -11,13 +11,13 @@
  * file per style scope.
  *
  *= require jquery-ui
- *= require_tree .
  *= require bootstrap-datepicker3.min
  *= require video.js/dist/video-js/video-js
  *= require quill/quill.snow.css
  *= require quill/quill.advanced.css
  *= require jfu/jquery.fileupload
  *= require jfu/jquery.fileupload-ui
+ *= require_tree .
  */
 @import "bootstrap";
 @import "bootstrap-sprockets";

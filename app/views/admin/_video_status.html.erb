@@ -1,10 +1,3 @@
-<% if @video.is_published? %>
-  <%= link_to "Unpublish", unpublish_video_path(@video), method: :post, remote: true, class: "btn btn-default" %>
-<% else %>
-  <%= link_to "Publish", publish_video_path(@video), method: :post, remote: true, class: "btn btn-default" %>
-<% end %>
-<% if @video.is_showed_on_tv? %>
-  <%= link_to "Unassign", unassign_video_path(@video), method: :post, remote: true, class: "btn btn-default" %>
-<% else %>
-  <%= link_to "Assign", assign_video_path(@video), method: :post, remote: true, class: "btn btn-default" %>
-<% end %>
+<span class="label label-primary"><%= video.is_published ? "published" : "no published" %></span>
+<br>
+<span class="label label-success"><%= video.is_showed_on_tv ? "showed" : "no showed" %></span>

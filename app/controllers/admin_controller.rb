@@ -22,7 +22,7 @@ class AdminController < ApplicationController
     render "video_status.js"
   end
   def show_videos
-    @videos = Video.all
+    @videos = Video.all.order(created_at: :desc)
   end
 
   private

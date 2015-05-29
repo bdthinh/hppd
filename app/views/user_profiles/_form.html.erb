@@ -43,9 +43,10 @@
   <div class="field">
     <%= f.label :avatar %>
     <%= f.file_field :avatar %>
-    <%= image_tag @user.avatar.url %>
+    <%= image_tag @user.avatar.url, class: "img-circle poster-img" %>
   </div>
   <div>
     <%= f.submit "Update", class: "btn btn-default" %>
+    <%= link_to 'Back', user_profile_path, class: "btn btn-default" %>
   </div>
 <% end %>

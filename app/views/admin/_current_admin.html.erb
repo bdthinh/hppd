@@ -8,9 +8,9 @@
   <% unless(current_user.from_omniauth?) %>
     <li><span class="menu-drop-item"><i class="fa fa-wrench"></i><%= link_to ' Change password', edit_user_registration_path %></span></li>
   <% end %>
-  <li><span class="menu-drop-item"><i class="fa fa-wrench"></i><%= link_to ' Categories', categories_path %></span></li>
-  <li><span class="menu-drop-item"><i class="fa fa-wrench"></i><%= link_to ' Posts', posts_path %></span></li>
-  <li><span class="menu-drop-item"><i class="fa fa-wrench"></i><%= link_to ' Promote', show_videos_path %></span></li>
-  <li><span class="menu-drop-item"><i class="fa fa-wrench"></i><%= link_to ' Users',show_users_path %></span></li>
+  <li><span class="menu-drop-item"><i class="fa fa-tags"></i><%= link_to ' Categories', categories_path %></span></li>
+  <li><span class="menu-drop-item"><i class="fa fa-newspaper-o"></i><%= link_to ' Posts', posts_path %></span></li>
+  <li><span class="menu-drop-item"><i class="fa fa-video-camera"></i><%= link_to ' Videos', show_videos_path %></span></li>
+  <li><span class="menu-drop-item"><i class="fa fa-users"></i><%= link_to ' Users',show_users_path %></span></li>
   <li><span class="menu-drop-item"><i class="fa fa-sign-out"></i><%= link_to ' Logout', destroy_user_session_path, :method => :delete %></span></li>
 </ul>

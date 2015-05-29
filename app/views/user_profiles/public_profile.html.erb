@@ -1,30 +1,51 @@
 <h1>Email: <%= @user.email %>
 </h1>
-<h4>
-  Name: <%= @user.name %><br>
-  Phone: <%= @user.phone_number %><br>
-  Birthdate: <%= @user.birthdate %><br>
-  Address: <%= @user.address %><br>
-  City: <%= @user.city %><br>
-  <%= image_tag @user.avatar.url %><br>
-</h4>
-<% @videos.each do |video| %>
-  <div style="float: left; margin-left: 40px;">
-    <%= link_to video do %>
-      <%= image_tag "video.thumbnail_url", style:"width: 196px; height: 110px;", id: "video_#{video.id}" %>
-    <% end %>
-    <p>
-      <%= link_to video do %>
-        <b><%= video.title %></b>
-      <% end %>
-      | by
-     <%= link_to public_profile_path(video.user) do %>
-        <%= video.user.email %>
-      <% end %>
-      |
-      <i id="video_vote_<%= video.id%>"><%= video.votes %></i> votes </p>
-    <p><%= video.is_published ? "published" : "not published" %></p>
-    <p><%= video.is_showed_on_tv ? "showed at #{video.showed_date}" : "not showed" %></p>
+<div class="bs-callout bs-callout-info">
+  <div class="media-left"><%= image_tag @user.avatar.url, class: "img-circle poster-img" %></div>
+  <div class="media-body">
+    <h4 class="media-heading">
+      <span><%= @user.name %></span>
+    </h4>
+    <div class="media-line">
+      <span>Phone <%= @user.phone_number %></span>
+    </div>
+    <div class="media-line">
+      <span>Birthdate <%= @user.birthdate %></span>
+    </div>
+    <div class="media-line">
+      <span>Address <%= @user.address %></span>
+    </div>
+    <div class="media-line">
+      <span>City <%= @user.city %></span>
+    </div>
   </div>
-<% end %>
-<%= link_to "Back", root_path %>
+</div>
+<h1>Video uploaded</h1>
+<div style="display: inline-block;">
+  <% @videos.each do |video| %>
+    <div style="float: left; margin-left: 40px;">
+      <%= link_to video do %>
+        <%= image_tag "/img/default_thumbnail.png", style:"width: 196px; height: 110px;", id: "video_#{video.id}" %>
+      <% end %>
+      <p>
+        <%= link_to video do %>
+          <b><%= video.title %></b>
+        <% end %>
+        | by
+     <%= link_to public_profile_path(video.user) do %>
+          <%= video.user.name %>
+        <% end %>
+        |
+      <i id="video_vote_<%= video.id%>">
+        <%= video.votes %></i>
+      <i class="fa fa-heart"></i>
+      <% if video.is_published %>
+        <span class="label label-primary"><%= video.is_published ? "published" : "not published" %></span>
+      <% end %>
+      <% if video.is_showed_on_tv %>
+        <span class="label label-success"><%= video.is_showed_on_tv ? "showed at #{video.showed_date}" : "not showed" %></span>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<%= link_to "Back", root_path, class: "btn btn-default" %>

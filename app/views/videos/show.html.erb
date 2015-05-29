@@ -1,21 +1,29 @@
-<video id="video_<%= @video.id %>" class="video-js vjs-default-skin"
+<div class='col-md-offset-3' style="margin-top: 50px;">
+  <video id="video_<%= @video.id %>" class="video-js vjs-default-skin"
   controls preload="auto" width="480" height="360"
   data-setup='{}'>
-  <source src="<%= @video.video.url%>" type='video/mp4' />
-  <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-</video>
-<p><b><%= @video.title %></b> | by <%= @video.user.email %> | <i id="video_vote_<%= @video.id%>"><%= @video.votes %></i> votes </p>
-<p><%= @video.is_published ? "published" : "not published" %></p>
-<p><%= @video.is_showed_on_tv ? "showed at #{@video.showed_date}" : "not showed" %></p>
-<p id="video_<%= @video.id %>_vote_section">
-    <% if current_user && current_user.voted?(@video) %>
-      <%= link_to "Unvote", unvote_video_path(@video), method: :post, remote: true, class: "btn" %>
-    <% else %>
-      <%= link_to 'Vote', vote_video_path(@video), method: :post, remote: true, class: "btn" %>
+    <source src="<%= @video.video.url%>" type='video/mp4' />
+    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+  </video>
+  <p>
+    <b><%= @video.title %></b> | by <%= @video.user.name %> | <i id="video_vote_<%= @video.id%>"><%= @video.votes %></i> <i class="fa fa-heart"></i>
+    <span id="video_<%= @video.id %>_vote_section">
+      <%= render 'videos/vote_section' %>
+    </span>
+  </p>
+  <div style="margin-bottom: 10px;">
+    <% if @video.is_published %>
+      <span class="label label-primary"><%= @video.is_published ? "published" : "not published" %></span>
     <% end %>
-</p>
-<% if current_user && current_user.is_owner?(@video) %>
-	<%= link_to 'Edit', edit_video_path(@video), class: "btn btn-default" %>
-  <%= link_to 'Take it off', video_path(@video), method: :delete, data: { confirm: "Are you sure" }, class: "btn btn-default" %>
-<% end %>
-<%= link_to 'Back', root_path, class: "btn btn-default" %>
+    <% if @video.is_showed_on_tv %>
+      <span class="label label-success"><%= @video.is_showed_on_tv ? "showed at #{@video.showed_date}" : "not showed" %></span>
+    <% end %>
+  </div>
+  <div class="actions">
+    <% if current_user && current_user.is_owner?(@video) %>
+      <%= link_to 'Edit', edit_video_path(@video), class: "btn btn-default" %>
+      <%= link_to 'Take it off', video_path(@video), method: :delete, data: { confirm: "Are you sure" }, class: "btn btn-default" %>
+    <% end %>
+    <%= link_to 'Back', root_path, class: "btn btn-default" %>
+  </div>
+</div>

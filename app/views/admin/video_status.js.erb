@@ -1,1 +1,2 @@
-$("#video_<%= @video.id %>_status").html("<%=j render 'admin/video_status' %>")
+$("#video_<%= @video.id %>_status").html("<%=j render partial: 'admin/video_status', locals: {video: @video} %>");
+$("#video_<%= @video.id %>_actions").html("<%=j render partial: 'admin/video_actions', locals: {video: @video} %>");

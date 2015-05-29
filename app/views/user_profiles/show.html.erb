@@ -1,12 +1,24 @@
 <h1>Email: <%= @user.email %>
 </h1>
-<h4>
-  Name: <%= @user.name %><br>
-  Phone: <%= @user.phone_number %><br>
-  Birthdate: <%= @user.birthdate %><br>
-  Address: <%= @user.address %><br>
-  City: <%= @user.city %><br>
-  <%= image_tag @user.avatar.url %><br>
-</h4>
-<%= link_to 'Edit', edit_user_profile_path(@user) %> |
-<%= link_to 'Back', root_path %>
+<div class="bs-callout bs-callout-info">
+  <div class="media-left"><%= image_tag @user.avatar.url, class: "img-circle poster-img" %></div>
+  <div class="media-body">
+    <h4 class="media-heading">
+      <span><%= @user.name %></span>
+    </h4>
+    <div class="media-line">
+      <span>Phone <%= @user.phone_number %></span>
+    </div>
+    <div class="media-line">
+      <span>Birthdate <%= @user.birthdate %></span>
+    </div>
+    <div class="media-line">
+      <span>Address <%= @user.address %></span>
+    </div>
+    <div class="media-line">
+      <span>City <%= @user.city %></span>
+    </div>
+  </div>
+</div>
+<%= link_to 'Edit', edit_user_profile_path(@user), class: "btn btn-default" %>
+<%= link_to 'Back', root_path, class: "btn btn-default" %>
